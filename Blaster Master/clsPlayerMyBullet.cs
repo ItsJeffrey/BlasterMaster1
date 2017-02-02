@@ -23,7 +23,7 @@ namespace BlasterMaster
             //------------------------------------------------------------------------------------------------------------------
 
             // Load resource image(s) & remove background and thu a sprite is born 
-            bullet = BlasterMaster.Properties.Resources.playerBullet;
+            bullet = BlasterMaster.Properties.Resources.playerMyBullet;
             bullet.MakeTransparent(Color.White);
         }
 
@@ -45,7 +45,7 @@ namespace BlasterMaster
             {
                 
                 case 2:
-                    base.setX(base.getX() + 20);
+                    base.setX(base.getX() + 30);
                     break;
                 case 3:
                     base.setX(base.getX() + 10);
@@ -57,7 +57,7 @@ namespace BlasterMaster
                     base.setX(base.getX() - 10);
                     break;
                 case 6:
-                    base.setX(base.getX() - 20);
+                    base.setX(base.getX() - 30);
                     break;
                 default:
                     break;
