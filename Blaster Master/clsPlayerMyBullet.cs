@@ -32,36 +32,15 @@ namespace BlasterMaster
             //------------------------------------------------------------------------------------------------------------------
             // Purpose: Method to move the player's bullets by 16 pixels every frame  
             //------------------------------------------------------------------------------------------------------------------
-            
 
             // Scroll bullets
             base.setY(base.getY() - 10);
 
             Random ran = new Random();
 
-            int direct = ran.Next(1, 7);
+            int direct = ran.Next(-1000, 1000);
 
-            switch (direct)
-            {
-                
-                case 2:
-                    base.setX(base.getX() + 30);
-                    break;
-                case 3:
-                    base.setX(base.getX() + 10);
-                    break;
-                case 4:
-                    base.setX(base.getX());
-                    break;
-                case 5:
-                    base.setX(base.getX() - 10);
-                    break;
-                case 6:
-                    base.setX(base.getX() - 30);
-                    break;
-                default:
-                    break;
-            }
+            base.setX(base.getX() + direct);
 
             // Sync collision rect
             base.setRectX(base.getX() + 2);
