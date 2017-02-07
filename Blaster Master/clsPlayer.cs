@@ -26,6 +26,7 @@ namespace BlasterMaster
         private int firePower;
         private int sheildTime;
         private int x3FireAmmo;
+        private int x2FireAmmo;
         private int x5FireAmmo;
         private int sheildX;
         private int sheildY;
@@ -217,6 +218,24 @@ namespace BlasterMaster
             //------------------------------------------------------------------------------------------------------------------
 
             return this.x3FireAmmo;
+        }
+
+        public void setx2FireAmmo(int x2FireAmmo)
+        {
+            //------------------------------------------------------------------------------------------------------------------
+            // Purpose: Mutator (set player's num of bullets remaining with this weapon)  
+            //------------------------------------------------------------------------------------------------------------------
+
+            this.x2FireAmmo = x2FireAmmo;
+        }
+
+        public int getx2FireAmmo()
+        {
+            //------------------------------------------------------------------------------------------------------------------
+            // Purpose: Accessor (fetch ammo remaining with this weapon)  
+            //------------------------------------------------------------------------------------------------------------------
+
+            return this.x2FireAmmo;
         }
 
         public void setX5FireAmmo(int x5FireAmmo)
