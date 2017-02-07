@@ -913,18 +913,26 @@ namespace BlasterMaster
                                             case 1: //:: x1 fire ::
 
                                                 // Create new instances
-                                                playerbullet[i, 0] = new clsPlayerMyBullet(x - 2, y);
+                                                playerbullet[i, 0] = new clsPlayerBullet(x - 2, y);
 
                                                 // Bail out
+                                                bailOut = true;
+                                                break;
+
+                                            case 2: //Jeff
+                                                playerbullet[i, 0] = new clsPlayerMyBullet(x - 2, y);
+
+                                                player.setx2FireAmmo(player.getx2FireAmmo() - 1);
+
                                                 bailOut = true;
                                                 break;
 
                                             case 3: //:: x3 fire ::
                                                
                                                 // Create new instances
-                                                playerbullet[i, 0] = new clsPlayerMyBullet(x - 2, y);
-                                                playerbullet[i, 1] = new clsPlayerMyBullet(x + 10, y + 10);
-                                                playerbullet[i, 2] = new clsPlayerMyBullet(x - 15, y + 10);
+                                                playerbullet[i, 0] = new clsPlayerBullet(x - 2, y);
+                                                playerbullet[i, 1] = new clsPlayerBullet(x + 10, y + 10);
+                                                playerbullet[i, 2] = new clsPlayerBullet(x - 15, y + 10);
 
                                                 // Dec num of fire round remaining
                                                 player.setX3FireAmmo(player.getX3FireAmmo() - 1);
@@ -936,18 +944,20 @@ namespace BlasterMaster
                                             case 5: //:: x5 fire ::
 
                                                 // Create new instances
-                                                playerbullet[i, 0] = new clsPlayerMyBullet(x - 2, y);
-                                                playerbullet[i, 1] = new clsPlayerMyBullet(x + 10, y + 10);
-                                                playerbullet[i, 2] = new clsPlayerMyBullet(x - 15, y + 10);
-                                                playerbullet[i, 3] = new clsPlayerMyBullet(x + 20, y + 20);
-                                                playerbullet[i, 4] = new clsPlayerMyBullet(x - 25, y + 20);
+                                                playerbullet[i, 0] = new clsPlayerBullet(x - 2, y);
+                                                playerbullet[i, 1] = new clsPlayerBullet(x + 10, y + 10);
+                                                playerbullet[i, 2] = new clsPlayerBullet(x - 15, y + 10);
+                                                playerbullet[i, 3] = new clsPlayerBullet(x + 20, y + 20);
+                                                playerbullet[i, 4] = new clsPlayerBullet(x - 25, y + 20);
 
                                                 // Dec num of fire round remaining
                                                 player.setX5FireAmmo(player.getX5FireAmmo() - 1);
 
                                                 // Bail out
                                                 bailOut = true;
-                                                break;                                                 
+                                                break;
+
+                                                                                        
                                         }
 
                                         if (bailOut == true)
@@ -1280,7 +1290,7 @@ namespace BlasterMaster
                                                 {
                                                     // Fetch random pickup to drop
                                                     bool voidPickup = false;
-                                                    c = getRandomNumber(0, 3);
+                                                    c = getRandomNumber(0, 4);
 
                                                     switch (c)
                                                     {
@@ -1311,6 +1321,15 @@ namespace BlasterMaster
                                                             {
                                                                 voidPickup = true;
                                                             }
+                                                            break;
+                                                        case 3: //:: x2 firepower ::
+
+                                                            // Void if player alrewady has it
+                                                            if (player.getFirePowerLevel() == 2)
+                                                            {
+                                                                voidPickup = true;
+                                                            }
+
                                                             break;
                                                     }
 
@@ -1403,6 +1422,14 @@ namespace BlasterMaster
                     player.setFirePower(1);
                 }
             }
+            // x2 fire (15 shots)
+            if (player.getFirePowerLevel() == 2)
+            {
+                if (player.getx2FireAmmo() <= 0)
+                {
+                    player.setFirePower(1);
+                }
+            }
 
             if (!levelCompleted)
             {
@@ -1447,6 +1474,10 @@ namespace BlasterMaster
                             case 2: // x5 power
                                 player.setFirePower(5);
                                 player.setX5FireAmmo(5);
+                                break;
+                            case 3: // x2 power
+                                player.setFirePower(2);
+                                player.setx2FireAmmo(25);
                                 break;
                         }
 
@@ -1589,8 +1620,9 @@ namespace BlasterMaster
             // Fire 
             if (GetAsyncKeyState(17) != 0)
             {
-                //if (shootKeyUP)
+                if (shootKeyUP)
                     shootKeyPress = true;
+                
             }
             else if (GetAsyncKeyState(17) == 0)
             {
@@ -1918,12 +1950,16 @@ namespace BlasterMaster
                 case 1:
                     s = "x1 (Unlimited Shots)";
                     break;
+                case 2:
+                    s = "x2 (" + player.getx2FireAmmo().ToString() + " Shots Remaining)";
+                    break;
                 case 3:
                     s = "x3 (" + player.getX3FireAmmo().ToString() + " Shots Remaining)";
                     break;
                 case 5:
                     s = "x5 (" + player.getX5FireAmmo().ToString() + " Shots Remaining)";
                     break;
+                
             }
 
             DrawText(graphicsBuffer, "Firepower: " + s, 12, 702, 14, FontStyle.Regular, Brushes.Black);
